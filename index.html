@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Strategy Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="panel top-panel">
+            <h2>-- Variable Board --</h2>
+            <div id="variable-display" class="variable-grid"></div>
+            <button id="reroll-variables">Reroll Variables</button>
+        </div>
+
+        <div class="panel center-panel">
+            <h2>-- Player Status --</h2>
+            <div class="player-panels">
+                <div class="player-panel">
+                    <h3>Player 1</h3>
+                    <p>Status: <span id="player1-status">Waiting</span></p>
+                    <p>Score: <span id="player1-score">0</span></p>
+                    <label for="player1-result">Final Result:</label>
+                    <input type="number" id="player1-result" class="result-input">
+                </div>
+                <div class="player-panel">
+                    <h3>Player 2</h3>
+                    <p>Status: <span id="player2-status">Waiting</span></p>
+                    <p>Score: <span id="player2-score">0</span></p>
+                    <label for="player2-result">Final Result:</label>
+                    <input type="number" id="player2-result" class="result-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="panel bottom-panel">
+            <h2>-- Hidden Voting --</h2>
+            <div class="voting-controls">
+                <div class="player-vote-section">
+                    <h3>Player 1 Vote</h3>
+                    <button class="vote-button" data-player="player1" data-vote="DRAW">DRAW</button>
+                    <button class="vote-button" data-player="player1" data-vote="STOP">STOP</button>
+                </div>
+                <div class="player-vote-section">
+                    <h3>Player 2 Vote</h3>
+                    <button class="vote-button" data-player="player2" data-vote="DRAW">DRAW</button>
+                    <button class="vote-button" data-player="player2" data-vote="STOP">STOP</button>
+                </div>
+            </div>
+            <p class="outcome-banner" id="vote-outcome-message">Waiting for votes...</p>
+
+            <h2>-- Round Controls --</h2>
+            <div class="round-controls">
+                <label for="round-limit">Rounds:</label>
+                <select id="round-limit">
+                    <option value="unlimited">Unlimited</option>
+                    <option value="3">3 Rounds</option>
+                    <option value="5">5 Rounds</option>
+                    <option value="10">10 Rounds</option>
+                </select>
+                <button id="start-round">Start Round</button>
+                <button id="end-round">End Round</button>
+                <button id="reset-game">Reset Game</button>
+                <label>
+                    <input type="checkbox" id="reroll-toggle" checked>
+                    Reroll variables on Start Round
+                </label>
+            </div>
+            <p class="round-winner" id="round-winner-message"></p>
+            <p id="current-round-display"></p>
+
+            <div id="game-over-section" class="game-over-section">
+                <h2>GAME OVER!</h2>
+                <p id="overall-winner"></p>
+                <p>Final Scores:</p>
+                <p>Player 1: <span id="final-score-player1">0</span></p>
+                <p>Player 2: <span id="final-score-player2">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

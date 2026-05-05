@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "f": [1, 10], "Krot": [1, 100], "ω0": [0, 20], "αrot": [0, 10]
     };
 
-    const variableDisplay = document.getElementById('variable-display');
+    const player1VariableDisplay = document.getElementById('player1-variable-display');
+    const player2VariableDisplay = document.getElementById('player2-variable-display');
     const rerollVariablesBtn = document.getElementById('reroll-variables');
 
     const player1Status = document.getElementById('player1-status');
@@ -38,21 +39,32 @@ document.addEventListener('DOMContentLoaded', () => {
     let roundLimit = 'unlimited';
     let currentRound = 0;
 
+    const playerVariables = {
+        'player1': {},
+        'player2': {}
+    };
+
     const player_data = {
         'player1': { status: player1Status, score: player1Score, result_input: player1ResultInput, vote: null },
         'player2': { status: player2Status, score: player2Score, result_input: player2ResultInput, vote: null }
     };
 
-    function rerollVariables() {
-        variableDisplay.innerHTML = '';
+    function rerollPlayerVariables(player, targetDisplay) {
+        targetDisplay.innerHTML = '';
         for (const varName in variables) {
             const [min, max] = variables[varName];
             const value = Math.floor(Math.random() * (max - min + 1)) + min;
+            playerVariables[player][varName] = value; // Store the value
             const varItem = document.createElement('div');
             varItem.classList.add('variable-item');
             varItem.textContent = `${varName}: ${value}`;
-            variableDisplay.appendChild(varItem);
+            targetDisplay.appendChild(varItem);
         }
+    }
+
+    function rerollAllVariables() {
+        rerollPlayerVariables('player1', player1VariableDisplay);
+        rerollPlayerVariables('player2', player2VariableDisplay);
     }
 
     function updatePlayerStatus(player, status) {
@@ -120,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updatePlayerStatus('player2', 'Voting');
 
             if (rerollToggle.checked) {
-                rerollVariables();
+                rerollAllVariables();
             }
             voteOutcomeMessage.textContent = 'Waiting for votes...';
             console.log(`Round ${currentRound} Started`);
@@ -171,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         roundLimitSelect.value = 'unlimited';
         currentRound = 0;
         resetVotes();
-        rerollVariables();
+        rerollAllVariables();
         roundWinnerMessage.textContent = '';
         updatePlayerStatus('player1', 'Waiting');
         updatePlayerStatus('player2', 'Waiting');
@@ -277,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event Listeners
-    rerollVariablesBtn.addEventListener('click', rerollVariables);
+    rerollVariablesBtn.addEventListener('click', rerollAllVariables);
     startRoundBtn.addEventListener('click', startRound);
     endRoundBtn.addEventListener('click', endRound);
     resetGameBtn.addEventListener('click', resetGame);
@@ -295,6 +307,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Initial setup
-    rerollVariables();
+    rerollAllVariables();
     updateUIState();
 });

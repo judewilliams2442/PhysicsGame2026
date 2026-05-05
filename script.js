@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function revealVoteOutcome() {
         if (player1Vote === 'DRAW' && player2Vote === 'DRAW') {
-            voteOutcomeMessage.textContent = 'Outcome: Continue Round';
+            voteOutcomeMessage.textContent = 'Draw a Card';
 
             // RESET votes → allows continuous loop
             player1Vote = null;
